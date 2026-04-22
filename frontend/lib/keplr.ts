@@ -1,18 +1,21 @@
-export const INITIA_MINIEVM_CHAIN_ID = 1328;
-export const INITIA_MINIEVM_CHAIN_HEX = "0x530";
+/** Initia registry `evm-1` MiniEVM testnet (eth_chainId from public JSON-RPC). */
+export const INITIA_MINIEVM_CHAIN_ID = 31337;
+export const INITIA_MINIEVM_CHAIN_HEX = "0x7a69";
+export const INITIA_MINIEVM_JSONRPC = "http://127.0.0.1:8545";
+
 export const REQUIRED_INIT_ADDRESS = "init135eaeut4e8yyaf79y20zhj0h792fcjcmkmhzcs";
 export const REQUIRED_EVM_ADDRESS = "0x8d33Dcf175c9C84Ea7c5229e2BC9F7F1549C4B1b";
 
 export const INITIA_MINIEVM_PARAMS = {
   chainId: INITIA_MINIEVM_CHAIN_HEX,
-  chainName: "Initia MiniEVM Testnet",
+  chainName: "Initia MiniEVM (evm-1 testnet)",
   nativeCurrency: {
     name: "INIT",
     symbol: "INIT",
     decimals: 18,
   },
-  rpcUrls: ["https://jsonrpc.testnet.initia.xyz"],
-  blockExplorerUrls: ["https://scan.testnet.initia.xyz"],
+  rpcUrls: [INITIA_MINIEVM_JSONRPC],
+  blockExplorerUrls: ["https://scan.testnet.initia.xyz/evm-1"],
 };
 
 type EvmProvider = {
@@ -52,7 +55,8 @@ async function assertRpcHealthy(provider: EvmProvider) {
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown RPC error";
     throw new Error(
-      `Initia RPC is unreachable. Check Keplr network settings and RPC URL. Details: ${message}`
+      `Initia MiniEVM RPC is unreachable (${INITIA_MINIEVM_JSONRPC}). ` +
+        `If you are offline or DNS-blocked, try another network or set a mirror in Keplr. Details: ${message}`
     );
   }
 }

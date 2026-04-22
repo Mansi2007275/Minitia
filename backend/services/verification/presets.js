@@ -3,18 +3,17 @@
 export const EXAMPLE_CODE_VERIFICATION_SPEC = {
   tests: [
     {
-      id: 'has-print',
-      name: 'Uses print',
-      assert: 'snippet_contains',
-      value: 'print(',
-      caseInsensitive: false,
+      id: 'defines-factorial',
+      name: 'Declares factorial(',
+      assert: 'regex',
+      pattern: 'factorial\\s*\\(',
+      flags: 'i',
     },
     {
-      id: 'mentions-hello',
-      name: 'Greets',
-      assert: 'snippet_contains',
-      value: 'hello',
-      caseInsensitive: true,
+      id: 'stdout-120',
+      name: 'Documents factorial(5)=120',
+      assert: 'mock_stdout',
+      expectStdoutContains: '120',
     },
   ],
 };
@@ -23,9 +22,10 @@ export const EXAMPLE_DATA_VERIFICATION_SPEC = {
   mustParseJson: true,
   jsonSchema: {
     type: 'object',
-    required: ['ok'],
+    required: ['name', 'price'],
     properties: {
-      ok: { const: true },
+      name: { type: 'string', minLength: 1 },
+      price: { type: 'number', exclusiveMinimum: 0 },
     },
   },
 };
@@ -33,5 +33,5 @@ export const EXAMPLE_DATA_VERIFICATION_SPEC = {
 export const EXAMPLE_API_CAPTURE_SPEC = {
   validateApiCapture: true,
   expectStatus: 200,
-  expectBodyIncludes: 'success',
+  expectBodyIncludes: '"id"',
 };

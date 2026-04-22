@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "deploy:initia": "hardhat run scripts/deploy.js --network initia"
+  },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "dotenv": "^16.4.5",
     "hardhat": "^2.19.0"
   }
 }

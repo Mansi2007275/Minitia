@@ -19,14 +19,14 @@ const codeTask = {
 };
 
 const passSubmit = {
-  submissionText: "print('hello world')",
-  submissionCodeSnippet: '',
+  submissionText: '120',
+  submissionCodeSnippet: 'def factorial(n):\n  return 1 if n < 2 else n * factorial(n-1)\n',
   submissionLink: '',
 };
 
 const failSubmit = {
-  submissionText: 'fn main() {}',
-  submissionCodeSnippet: '',
+  submissionText: 'no factorial output',
+  submissionCodeSnippet: 'fn main() {}',
   submissionLink: '',
 };
 
@@ -42,10 +42,12 @@ const dataTask = {
 };
 
 console.log('--- Data PASS ---');
-console.log(verifyDataTask(dataTask, { submissionText: JSON.stringify({ ok: true }) }));
+console.log(
+  verifyDataTask(dataTask, { submissionText: JSON.stringify({ name: 'Demo', price: 12.5 }) })
+);
 
 console.log('--- Data FAIL ---');
-console.log(verifyDataTask(dataTask, { submissionText: JSON.stringify({ ok: false }) }));
+console.log(verifyDataTask(dataTask, { submissionText: JSON.stringify({ name: '', price: 12 }) }));
 
 const apiTask = {
   taskType: 'data',
@@ -57,7 +59,7 @@ console.log(
   await verifyApiTask(apiTask, {
     submissionText: JSON.stringify({
       status: 200,
-      body: '{"success":true}',
+      body: '{"id":1,"name":"Leanne Graham"}',
       headers: {},
     }),
   })

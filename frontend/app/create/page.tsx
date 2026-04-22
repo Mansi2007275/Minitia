@@ -16,6 +16,12 @@ import {
   CODE_VERIFICATION_PRESET,
   DATA_VERIFICATION_PRESET,
 } from "@/lib/verificationPresets";
+import {
+  buildDemoApiCaptureTask,
+  buildDemoCodeTask,
+  buildDemoJsonSchemaTask,
+  INITIA_DEMO_WALLET_LABEL,
+} from "@/lib/demoTasks";
 
 const METHOD_LABELS: Record<ValidationMethod, string> = {
   tests: "Tests (snippet / regex / mock stdout)",
@@ -191,8 +197,40 @@ export default function CreateTask() {
         <div className="callout">
           <span className="callout-strong">Demo mode:</span> on-chain <code>createTask</code> is skipped.
           Set <code className="mono-link">NEXT_PUBLIC_CONTRACT_ADDRESS</code> for Minitia on-chain funding.
+          <span style={{ display: "block", marginTop: "0.5rem", fontSize: "0.82rem" }}>
+            Example Initia wallet (readable): <strong>{INITIA_DEMO_WALLET_LABEL}</strong>
+          </span>
         </div>
       ) : null}
+
+      <div className="panel" style={{ marginBottom: "1.25rem" }}>
+        <p className="form-label" style={{ marginBottom: "0.65rem" }}>
+          Recording a demo? Load a judge-ready task (skips flaky briefs)
+        </p>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => setStructuredTask(buildDemoApiCaptureTask())}
+          >
+            API capture demo
+          </button>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => setStructuredTask(buildDemoJsonSchemaTask())}
+          >
+            JSON schema demo
+          </button>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => setStructuredTask(buildDemoCodeTask())}
+          >
+            Code + stdout demo
+          </button>
+        </div>
+      </div>
 
       <div className="panel">
         {!structuredTask ? (

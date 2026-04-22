@@ -90,12 +90,24 @@ function validateSchema(value, schema, path = '$') {
       log.push(`${path}: expected string`);
       return { ok: false, log };
     }
+    if (typeof schema.minLength === 'number' && value.length < schema.minLength) {
+      log.push(`${path}: string length ${value.length} < minLength ${schema.minLength}`);
+      return { ok: false, log };
+    }
     return { ok: true, log };
   }
 
   if (t === 'number') {
     if (typeof value !== 'number' || Number.isNaN(value)) {
       log.push(`${path}: expected number`);
+      return { ok: false, log };
+    }
+    if (typeof schema.minimum === 'number' && value < schema.minimum) {
+      log.push(`${path}: number ${value} < minimum ${schema.minimum}`);
+      return { ok: false, log };
+    }
+    if (typeof schema.exclusiveMinimum === 'number' && value <= schema.exclusiveMinimum) {
+      log.push(`${path}: number ${value} must be > exclusiveMinimum ${schema.exclusiveMinimum}`);
       return { ok: false, log };
     }
     return { ok: true, log };
