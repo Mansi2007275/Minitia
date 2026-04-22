@@ -1,13 +1,21 @@
 "use client";
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { BrowserProvider, Contract, parseEther } from 'ethers';
+import {
+  connectKeplrEvm,
+  getKeplrEvmProvider,
+} from '@/lib/keplr';
 
 export default function CreateTask() {
   const router = useRouter();
   const [rawDescription, setRawDescription] = useState("");
   const [structuredTask, setStructuredTask] = useState<any>(null);
   const [reward, setReward] = useState("0.1");
-  const [creatorWallet, setCreatorWallet] = useState("0xMockCreatorWallet");
+  const [creatorWallet, setCreatorWallet] = useState("");
+
+  // Wallet connection must now happen explicitly via user click.
+  // We'll update the logic below to prompt for connection if wallet isn't cached or provided.
   const [loading, setLoading] = useState(false);
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000';
 
@@ -34,25 +42,65 @@ export default function CreateTask() {
   };
 
   const handleCreate = async () => {
+    let connectedAccount = "";
+    try {
+      connectedAccount = await connectKeplrEvm();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Keplr connection failed";
+      alert(message);
+      return;
+    }
+
+    setCreatorWallet(connectedAccount);
+
     setLoading(true);
     try {
+      // 1. Create the task in the backend to get a taskId
       const res = await fetch(`${baseUrl}/tasks`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...structuredTask,
           reward: parseFloat(reward),
-          creatorWallet
+          creatorWallet: connectedAccount
         })
       });
       const data = await res.json();
-      if (data.success) {
-        router.push('/');
-      } else {
+      
+      if (!data.success) {
         alert("Error: " + data.message);
+        setLoading(false);
+        return;
       }
-    } catch (err) {
+
+      // 2. Fund the task on-chain
+      const evmProvider = getKeplrEvmProvider();
+      if (!evmProvider) {
+        alert("Keplr EVM provider not found. Please enable EVM support in Keplr.");
+        return;
+      }
+      const provider = new BrowserProvider(evmProvider);
+      const signer = await provider.getSigner();
+      const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS!;
+      const abi = ["function createTask(uint taskId) payable"];
+      const contract = new Contract(contractAddress, abi, signer);
+
+      const tx = await contract.createTask(data.task.onChainTaskId, {
+        value: parseEther(reward)
+      });
+      await tx.wait();
+
+      router.push('/');
+    } catch (err: any) {
       console.error(err);
+      const message = err instanceof Error ? err.message : "Transaction failed";
+      if (message.includes("Failed to fetch")) {
+        alert(
+          "Transaction failed: Initia RPC is unreachable. Check Keplr network settings and RPC URL."
+        );
+      } else {
+        alert("Transaction failed: " + message);
+      }
     } finally {
       setLoading(false);
     }
@@ -94,12 +142,12 @@ export default function CreateTask() {
               <textarea className="form-input" value={structuredTask.criteria} onChange={(e) => setStructuredTask({...structuredTask, criteria: e.target.value})} />
             </div>
             <div className="form-group">
-              <label className="form-label">Reward (ETH)</label>
+              <label className="form-label">Reward (INIT)</label>
               <input type="number" step="0.01" className="form-input" value={reward} onChange={(e) => setReward(e.target.value)} />
             </div>
             <div className="form-group">
-              <label className="form-label">Creator Wallet</label>
-              <input type="text" className="form-input" value={creatorWallet} onChange={(e) => setCreatorWallet(e.target.value)} />
+              <label className="form-label">Creator Wallet (EVM)</label>
+              <input type="text" className="form-input" value={creatorWallet} readOnly />
             </div>
             <div style={{ display: "flex", gap: "1rem" }}>
               <button onClick={handleCreate} className="btn" disabled={loading}>

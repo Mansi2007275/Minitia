@@ -41,7 +41,7 @@ export default function Dashboard() {
                 {t.description.length > 100 ? t.description.substring(0, 100) + '...' : t.description}
               </p>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "1rem" }}>
-                <span><strong>Reward:</strong> {t.reward} ETH</span>
+                <span><strong>Reward:</strong> {t.reward} INIT</span>
                 <span className={`status-badge status-${t.status.toLowerCase()}`}>{t.status}</span>
               </div>
               <div style={{ display: "flex", gap: "0.5rem" }}>

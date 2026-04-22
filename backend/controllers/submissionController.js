@@ -57,6 +57,8 @@ export const evaluateWork = async (req, res) => {
       return res.status(404).json({ success: false, message: "Submission not found" });
     }
 
+    const submissionRowId = submissionId || submission.id;
+
     // Call OpenAI with prompt
     const evaluation = await evaluateSubmission(task.criteria, submission);
 
@@ -68,10 +70,10 @@ export const evaluateWork = async (req, res) => {
       
       // Update statuses
       updateTaskStatus(taskId, "paid");
-      updateSubmissionStatus(submissionId, "passed");
+      updateSubmissionStatus(submissionRowId, "passed");
     } else {
       updateTaskStatus(taskId, "failed");
-      updateSubmissionStatus(submissionId, "failed");
+      updateSubmissionStatus(submissionRowId, "failed");
     }
 
     // Strict Response Format

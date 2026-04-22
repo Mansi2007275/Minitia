@@ -1,5 +1,6 @@
 import './globals.css';
 import Link from 'next/link';
+import KeplrConnect from './components/KeplrConnect';
 
 export const metadata = {
   title: 'Intia - Decentralized AI Task Marketplace',
@@ -19,9 +20,12 @@ export default function RootLayout({
             <Link href="/" className="nav-logo">
               Intia MVP
             </Link>
-            <div className="nav-links">
-              <Link href="/" className="nav-link">Dashboard</Link>
-              <Link href="/create" className="nav-link">Create Task</Link>
+            <div className="nav-right">
+              <div className="nav-links">
+                <Link href="/" className="nav-link">Dashboard</Link>
+                <Link href="/create" className="nav-link">Create Task</Link>
+              </div>
+              <KeplrConnect />
             </div>
           </div>
         </nav>

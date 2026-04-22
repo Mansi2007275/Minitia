@@ -27,10 +27,8 @@ export const createNewTask = async (req, res) => {
     // 1. Store task locally (gets UUID + onChainTaskId)
     const task = createTask({ title, description, criteria, reward, creatorWallet });
 
-    // 2. Call smart contract createTask()
-    // Doing this asynchronously so it doesn't block necessarily, but for MVP we track it
-    // If it fails, we might want to revert the task, but for MVP let's await it.
-    await createTaskOnChain(task.onChainTaskId, reward);
+    // 2. The Smart Contract tracking is now handled by the frontend via MetaMask.
+    // The frontend will call createTask(task.onChainTaskId) directly.
 
     res.json({ success: true, task });
   } catch (error) {

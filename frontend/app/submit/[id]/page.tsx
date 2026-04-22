@@ -8,7 +8,7 @@ export default function SubmitWork({ params }: { params: Promise<{ id: string }>
   const taskId = unwrappedParams.id;
   const [submissionText, setSubmissionText] = useState("");
   const [submissionLink, setSubmissionLink] = useState("");
-  const [contributorWallet, setContributorWallet] = useState("0xMockContributor");
+  const [contributorWallet, setContributorWallet] = useState("0x2222222222222222222222222222222222222222");
   const [loading, setLoading] = useState(false);
   const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000';
 
