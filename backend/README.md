@@ -25,8 +25,9 @@ npm run dev
 
 ## Environment
 
-- `OPENAI_API_KEY`
-- `OPENAI_MODEL`
+- `GROQ_API_KEY`
+- `GROQ_MODEL`
+- `GROQ_BASE_URL` (optional; default Groq OpenAI-compatible base URL)
 - `PORT`
 - `CORS_ORIGIN`
 - `RPC_URL`

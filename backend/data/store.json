@@ -1,4 +1,139 @@
 {
-  "tasks": [],
-  "submissions": []
+  "tasks": [
+    {
+      "id": "1450d27e-308e-4936-879e-d942ad024d34",
+      "title": "T",
+      "description": "D",
+      "criteria": "C",
+      "reward": 0.1,
+      "creatorWallet": "0x1111111111111111111111111111111111111111",
+      "contributorWallet": "0x2222222222222222222222222222222222222222",
+      "onChainTaskId": 1,
+      "status": "paid",
+      "createdAt": "2026-04-22T16:16:19.334Z",
+      "taskType": "generic",
+      "verificationSpec": {},
+      "disputeStatus": "none",
+      "disputeReason": ""
+    },
+    {
+      "id": "15aae9f1-2274-47a8-a884-55c1769d4b47",
+      "title": "Code",
+      "description": "d",
+      "criteria": "c",
+      "reward": 0.1,
+      "creatorWallet": "0x1111111111111111111111111111111111111111",
+      "contributorWallet": "0x2222222222222222222222222222222222222222",
+      "onChainTaskId": 2,
+      "status": "paid",
+      "createdAt": "2026-04-22T16:22:42.238Z",
+      "taskType": "code",
+      "verificationSpec": {
+        "tests": [
+          {
+            "id": "t1",
+            "assert": "snippet_contains",
+            "value": "print(",
+            "caseInsensitive": false
+          }
+        ]
+      },
+      "disputeStatus": "none",
+      "disputeReason": ""
+    },
+    {
+      "id": "a4cdcb0a-6211-4e9a-8f62-12b7e4d112d0",
+      "title": "D",
+      "description": "d",
+      "criteria": "say hi",
+      "reward": 0.1,
+      "creatorWallet": "0x1111111111111111111111111111111111111111",
+      "contributorWallet": "0x2222222222222222222222222222222222222222",
+      "onChainTaskId": 3,
+      "status": "paid",
+      "createdAt": "2026-04-22T16:29:50.552Z",
+      "taskType": "generic",
+      "verificationSpec": {},
+      "disputeStatus": "resolved",
+      "disputeReason": "bad eval"
+    },
+    {
+      "id": "f1b70eae-7693-452c-995f-8884c91572da",
+      "title": "C",
+      "description": "d",
+      "criteria": "c",
+      "reward": 0.1,
+      "creatorWallet": "0x1111111111111111111111111111111111111111",
+      "contributorWallet": "0x2222222222222222222222222222222222222222",
+      "onChainTaskId": 4,
+      "status": "paid",
+      "createdAt": "2026-04-22T16:30:01.476Z",
+      "taskType": "code",
+      "verificationSpec": {
+        "tests": [
+          {
+            "id": "t1",
+            "assert": "snippet_contains",
+            "value": "ok"
+          }
+        ]
+      },
+      "disputeStatus": "none",
+      "disputeReason": ""
+    }
+  ],
+  "submissions": [
+    {
+      "id": "eeb3331c-d3bd-478e-99a4-70f92dad2081",
+      "taskId": "1450d27e-308e-4936-879e-d942ad024d34",
+      "submissionText": "print hello",
+      "submissionLink": "",
+      "contributorWallet": "0x2222222222222222222222222222222222222222",
+      "status": "passed",
+      "createdAt": "2026-04-22T16:16:19.725Z",
+      "submissionCodeSnippet": "",
+      "submissionRepoUrl": "",
+      "disputeStatus": "none",
+      "disputeReason": ""
+    },
+    {
+      "id": "b85a050f-3991-4ade-bf59-678776c5c919",
+      "taskId": "15aae9f1-2274-47a8-a884-55c1769d4b47",
+      "submissionText": "print('hi')",
+      "submissionLink": "",
+      "contributorWallet": "0x2222222222222222222222222222222222222222",
+      "submissionCodeSnippet": "",
+      "submissionRepoUrl": "",
+      "status": "passed",
+      "createdAt": "2026-04-22T16:22:42.392Z",
+      "disputeStatus": "none",
+      "disputeReason": ""
+    },
+    {
+      "id": "49602c2f-d6a3-4d24-b375-cc45ea64a44f",
+      "taskId": "a4cdcb0a-6211-4e9a-8f62-12b7e4d112d0",
+      "submissionText": "hello hi there",
+      "submissionLink": "",
+      "contributorWallet": "0x2222222222222222222222222222222222222222",
+      "submissionCodeSnippet": "",
+      "submissionRepoUrl": "",
+      "status": "passed",
+      "createdAt": "2026-04-22T16:29:50.776Z",
+      "disputeStatus": "resolved",
+      "disputeReason": "bad eval"
+    },
+    {
+      "id": "0a84defa-5e99-404a-8fd4-fda29cb92354",
+      "taskId": "f1b70eae-7693-452c-995f-8884c91572da",
+      "submissionText": "ok done",
+      "submissionLink": "",
+      "contributorWallet": "0x2222222222222222222222222222222222222222",
+      "submissionCodeSnippet": "",
+      "submissionRepoUrl": "",
+      "status": "passed",
+      "createdAt": "2026-04-22T16:30:01.629Z",
+      "disputeStatus": "none",
+      "disputeReason": ""
+    }
+  ]
 }

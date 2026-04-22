@@ -12,23 +12,17 @@ export default function TaskCard({ task }: TaskCardProps) {
       : task.description;
 
   return (
-    <div className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
-      <div className="flex items-start justify-between gap-4">
-        <h3 className="text-lg font-semibold text-slate-900">{task.title}</h3>
-        <span className="rounded-full bg-slate-900 px-3 py-1 text-sm font-semibold text-white">
-          ${task.reward}
-        </span>
+    <article className="task-card">
+      <h3 className="task-card-title">{task.title}</h3>
+      <p className="task-card-body">{shortDescription}</p>
+      <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.5rem", marginTop: "auto" }}>
+        <span className="reward-pill">${task.reward}</span>
       </div>
-      <p className="mt-3 text-sm leading-6 text-slate-600">{shortDescription}</p>
-      <div className="mt-6">
-        <Link
-          href={`/task/${task.id}`}
-          className="inline-flex items-center gap-2 text-sm font-semibold text-slate-900 hover:text-slate-700"
-        >
-          View Details
-          <span aria-hidden="true">→</span>
+      <div className="task-card-actions" style={{ marginTop: "1rem" }}>
+        <Link href={`/task/${task.id}`} className="btn btn-secondary">
+          View details
         </Link>
       </div>
-    </div>
+    </article>
   );
 }

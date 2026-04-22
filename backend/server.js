@@ -8,8 +8,18 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
-app.use(express.json());
+const corsOrigin = process.env.CORS_ORIGIN || 'http://localhost:3000';
+app.use(
+  cors({
+    origin: [corsOrigin, 'http://127.0.0.1:3000'],
+    methods: ['GET', 'POST', 'OPTIONS'],
+  })
+);
+app.use(express.json({ limit: '512kb' }));
+
+app.get('/health', (_req, res) => {
+  res.json({ ok: true, service: 'minitia-api' });
+});
 
 // Strict Endpoints Requirement
 app.use('/tasks', taskRoutes);

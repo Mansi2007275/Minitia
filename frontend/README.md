@@ -1,6 +1,6 @@
-# AI Work Marketplace Frontend
+# Minitia frontend
 
-Next.js frontend for task browsing, creation, and submission. It is connected to the backend API.
+Next.js frontend for the Minitia proof-of-work task marketplace: browsing, creation, and submission against the backend API.
 
 ## Pages
 

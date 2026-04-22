@@ -1,11 +1,12 @@
 {
-  "name": "ai-work-backend",
+  "name": "minitia-backend",
   "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "node server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "eval:smoke": "node scripts/evaluation-smoke.mjs"
   },
   "dependencies": {
     "cors": "^2.8.6",
@@ -15,7 +16,7 @@
     "openai": "^4.104.0",
     "uuid": "^13.0.0"
   },
-  "description": "Express API for AI task structuring, submission handling, evaluation, and optional smart-contract payout.",
+  "description": "Minitia backend: Express API for AI task structuring, submission handling, evaluation, and optional smart-contract payout.",
   "main": "server.js",
   "keywords": [],
   "author": "",
